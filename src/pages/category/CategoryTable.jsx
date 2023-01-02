@@ -24,6 +24,20 @@ const CategoryTable = () => {
       stock: "5",
       price: "1111",
     },
+    {
+      id: "4",
+      category: "aaa",
+      title: "bbb",
+      stock: "5",
+      price: "1111",
+    },
+    {
+      id: "5",
+      category: "aaa",
+      title: "bbb",
+      stock: "5",
+      price: "1111",
+    },
   ];
 
   const dataInfo = [
@@ -71,7 +85,7 @@ const CategoryTable = () => {
 
   return (
     <>
-      <PaginatedTable data={data} dataInfo={dataInfo} additionField={additionField} />
+      <PaginatedTable data={data} dataInfo={dataInfo} additionField={additionField} numOnPage={2}/>
     </>
   );
 };
