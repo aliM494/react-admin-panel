@@ -1,5 +1,5 @@
 import React from "react";
-import ModalContainer from "../../components/ModalContainer";
+import ModalsContainer from "../../components/ModalsContainer";
 
 const AddCategory = () => {
   return (
@@ -11,7 +11,7 @@ const AddCategory = () => {
       >
         <i className="fas fa-plus text-light"></i>
       </button>
-      <ModalContainer>
+      <ModalsContainer>
         <div
           className="modal fade"
           id="add_product_category_modal"
@@ -114,7 +114,7 @@ const AddCategory = () => {
             </div>
           </div>
         </div>
-      </ModalContainer>
+      </ModalsContainer>
     </>
   );
 };
