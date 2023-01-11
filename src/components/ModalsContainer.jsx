@@ -1,12 +1,7 @@
 import React from "react";
 import { createPortal } from "react-dom";
 
-const ModalsContainer = ({
-  children,
-  id,
-  fullScreen,
-  title,
-}) => {
+const ModalsContainer = ({ children, id, fullScreen, title }) => {
   return createPortal(
     <div className="modal fade" id={id} tabIndex="-1" aria-hidden="true">
       <div className={`modal-dialog ${fullScreen ? "modal-fullscreen" : ""}`}>

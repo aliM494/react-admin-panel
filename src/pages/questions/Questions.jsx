@@ -1,35 +1,32 @@
 import React from "react";
-import ProductTable from "./ProductTable";
-import AddProduct from "./AddProduct";
-import AddAttribute from "./AddAttribute";
+import AddQuestion from "./AddQuestion";
+import QuestionsTable from "./QuestionsTable";
 
-const Product = () => {
+const Questions = () => {
   return (
     <div
-      id="manage_product_category"
-      className="manage_product_category main_section"
+      id="manage_question_section"
+      className="manage_question_section main_section"
     >
-      <h4 className="text-center my-3">مدیریت دسته بندی محصولات</h4>
+      <h4 className="text-center my-3">مدیریت سوالات</h4>
       <div className="row justify-content-between">
         <div className="col-10 col-md-6 col-lg-4">
           <div className="input-group mb-3 dir_ltr">
             <input
               type="text"
               className="form-control"
-              placeholder="قسمتی از عنوان را وارد کنید"
+              placeholder="قسمتی از نام یا نام خانوادگی یا سوال را وارد کنید"
             />
             <span className="input-group-text">جستجو</span>
           </div>
         </div>
         <div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
-          <AddProduct />
+          <AddQuestion />
         </div>
       </div>
-
-      <ProductTable />
-      <AddAttribute />
+      <QuestionsTable />
     </div>
   );
 };
 
-export default Product;
+export default Questions;

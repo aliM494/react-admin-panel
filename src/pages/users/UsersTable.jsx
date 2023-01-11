@@ -1,50 +1,39 @@
 import React from "react";
 
-const ProductTable = () => {
+const UsersTable = () => {
   return (
     <>
       <table className="table table-responsive text-center table-hover table-bordered">
         <thead className="table-secondary">
           <tr>
             <th>#</th>
-            <th>دسته</th>
-            <th>عنوان</th>
-            <th>قیمت</th>
-            <th>موجودی</th>
-            <th>تعداد لایک</th>
-            <th>وضعیت</th>
+            <th>نام و نام خانوادگی</th>
+            <th>موبایل</th>
+            <th>ایمیل</th>
+            <th>نقش </th>
+            <th>تاریخ ثبت نام</th>
             <th>عملیات</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>1</td>
-            <td>دسته شماره فلان</td>
-            <td>محصول شماره1</td>
-            <td>20,000 تومان</td>
-            <td>10</td>
-            <td>
-              <span className="text-success mx-2">30</span>
-              <span className="text-danger mx-2">10</span>
-            </td>
-            <td>فعال</td>
+            <td>قاسم بساکی</td>
+            <td>09110110011</td>
+            <td>mahdicmptr@gmail.com</td>
+            <td>کاربر</td>
+            <td>1400/10/12</td>
             <td>
               <i
                 className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
-                title="ویرایش محصول"
+                title="جزئیات و ویرایش کاربر"
                 data-bs-toggle="modal"
                 data-bs-placement="top"
-                data-bs-target="#add_product_category_modal"
-              ></i>
-              <i
-                className="fas fa-receipt text-info mx-1 hoverable_text pointer has_tooltip"
-                title="ثبت ویژگی"
-                data-bs-toggle="modal"
-                data-bs-target="#add_product_attr_modal"
+                data-bs-target="#add_user_modal"
               ></i>
               <i
                 className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
-                title="حذف محصول"
+                title="حذف کاربر"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
               ></i>
@@ -88,4 +77,4 @@ const ProductTable = () => {
   );
 };
 
-export default ProductTable;
+export default UsersTable;

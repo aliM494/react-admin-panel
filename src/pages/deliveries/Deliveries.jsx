@@ -1,15 +1,14 @@
 import React from "react";
-import ProductTable from "./ProductTable";
-import AddProduct from "./AddProduct";
-import AddAttribute from "./AddAttribute";
+import AddDelivery from "./AddDelivery";
+import DeliveriesTable from "./DeliveriesTable";
 
-const Product = () => {
+const Deliveries = () => {
   return (
     <div
-      id="manage_product_category"
-      className="manage_product_category main_section"
+      id="manage_deliveries_section"
+      className="manage_deliveries_section main_section"
     >
-      <h4 className="text-center my-3">مدیریت دسته بندی محصولات</h4>
+      <h4 className="text-center my-3">مدیریت نحوه ارسال</h4>
       <div className="row justify-content-between">
         <div className="col-10 col-md-6 col-lg-4">
           <div className="input-group mb-3 dir_ltr">
@@ -22,14 +21,12 @@ const Product = () => {
           </div>
         </div>
         <div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
-          <AddProduct />
+          <AddDelivery />
         </div>
       </div>
-
-      <ProductTable />
-      <AddAttribute />
+      <DeliveriesTable />
     </div>
   );
 };
 
-export default Product;
+export default Deliveries;

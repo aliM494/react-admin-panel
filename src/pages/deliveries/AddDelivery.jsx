@@ -1,34 +1,43 @@
 import React from "react";
 import ModalsContainer from "../../components/ModalsContainer";
 
-const AddBrands = () => {
+const AddDelivery = () => {
   return (
     <>
       <button
         className="btn btn-success d-flex justify-content-center align-items-center"
         data-bs-toggle="modal"
-        data-bs-target="#add_brand_modal"
+        data-bs-target="#add_delivery_modal"
       >
         <i className="fas fa-plus text-light"></i>
       </button>
 
       <ModalsContainer
-        id={"add_brand_modal"}
+        id={"add_delivery_modal"}
         fullScreen={false}
-        title={"افزودن برند"}
+        title={"افزودن روش ارسال"}
       >
         <div className="modal-body">
           <div className="container">
             <div className="row justify-content-center">
               <div className="col-12">
                 <div className="input-group my-3 dir_ltr">
+                  <input type="text" className="form-control" placeholder="" />
+                  <span className="input-group-text w_8rem justify-content-center">
+                    عنوان
+                  </span>
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="input-group my-3 dir_ltr">
                   <input
-                    type="text"
+                    type="number"
                     className="form-control"
-                    placeholder="کیبرد را در حالت لاتین قرار دهید"
+                    placeholder="تومان (فقط عدد)"
                   />
                   <span className="input-group-text w_8rem justify-content-center">
-                    عنوان لاتیتن برند
+                    {" "}
+                    هزینه{" "}
                   </span>
                 </div>
               </div>
@@ -37,46 +46,18 @@ const AddBrands = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="کیبرد را در حالت فارسی قرار دهید"
+                    placeholder="فقط عدد"
                   />
                   <span className="input-group-text w_8rem justify-content-center">
-                    عنوان فارسی برند
+                    مدت ارسال
                   </span>
                 </div>
               </div>
               <div className="col-12">
                 <div className="input-group my-3 dir_ltr">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="متن کوتاه در مورد برند"
-                  />
+                  <input type="text" className="form-control" placeholder="" />
                   <span className="input-group-text w_8rem justify-content-center">
-                    توضیحات برند
-                  </span>
-                </div>
-              </div>
-              <div className="col-12">
-                <div className="input-group mb-3 dir_ltr">
-                  <input
-                    type="file"
-                    className="form-control"
-                    placeholder="تصویر"
-                  />
-                  <span className="input-group-text w_6rem justify-content-center">
-                    تصویر
-                  </span>
-                </div>
-              </div>
-              <div className="col-12">
-                <div className="input-group mb-3 dir_ltr">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="یک کلمه در مورد تصویر"
-                  />
-                  <span className="input-group-text w_6rem justify-content-center">
-                    توضیح تصویر
+                    واحد مدت ارسال
                   </span>
                 </div>
               </div>
@@ -91,4 +72,4 @@ const AddBrands = () => {
   );
 };
 
-export default AddBrands;
+export default AddDelivery;
