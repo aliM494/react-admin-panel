@@ -22,7 +22,19 @@ a {
     text-decoration: none;
 }
 
-.disable{
+.waiting-center {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.disable {
     opacity: 50%;
     pointer-events: none;
     transition: all 0.5s ease;

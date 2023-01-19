@@ -10,7 +10,6 @@ const PaginatedTable = ({
   numOnPage,
   searchParams,
 }) => {
-
   const [initData, setInitData] = useState([data]);
   const [tableData, setTableData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,7 +41,6 @@ const PaginatedTable = ({
 
   return (
     <>
-
       {/* //#endregion Search Section */}
       <div className="row justify-content-between">
         <div className="col-10 col-md-6 col-lg-4">
