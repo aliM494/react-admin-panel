@@ -1,27 +1,31 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { logoutService } from "../../services/auth";
+import { Alert } from "../../utils/alerts";
 
 const Logout = () => {
   const [loading, setLoading] = useState(true);
 
+  const handleLogout = async () => {
+    try {
+      const res = await logoutService();
+      if (res.status == 200) {
+        localStorage.removeItem("loginToken");
+        setLoading(false);
+      } else {
+        Alert("متاسفم !", res.data.message, "error");
+      }
+    } catch (error) {
+      setLoading(false);
+      Alert("متاسفم !", "مشکلی از سمت سرور رخداده است", "error");
+    }
+  };
+
   useEffect(() => {
-    const loginToken = JSON.parse(localStorage.getItem("loginToken"));
-
-    axios
-      .get("http://ecomadminapi.azhadev.ir/api/auth/logout", {
-        headers: {
-          Authorization: `Bearer ${loginToken.token}`,
-        },
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          localStorage.removeItem("loginToken");
-          setLoading(false);
-        }
-      });
+    handleLogout();
   }, []);
-
+  
   return (
     <>
       {loading ? (

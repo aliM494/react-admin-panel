@@ -1,36 +1,34 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { getUserService } from "../services/auth";
 
 export const useIsLogin = () => {
-    const [isLogin, setIsLogin] = useState(false);
-    const [loading, setLoading] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const loginToken = JSON.parse(localStorage.getItem("loginToken"));
+  const handleCheckLogin = async () => {
+    try {
+      const res = await getUserService();
 
-        if (loginToken) {
-            axios
-                .get("http://ecomadminapi.azhadev.ir/api/auth/user", {
-                    headers: {
-                        Authorization: `Bearer ${loginToken.token}`,
-                    },
-                })
-                .then((res) => {
-                    setIsLogin(res.status == 200 ? true : false);
-                    setLoading(false);
-                })
-                .catch((e) => {
-                    localStorage.removeItem("loginToken");
-                    setIsLogin(false);
-                    setLoading(false);
-                });
-        } else {
-            setIsLogin(false);
-            setLoading(false);
-        }
-    }, []);
+      setIsLogin(res.status == 200 ? true : false);
+      setLoading(false);
+    } catch (error) {
+      localStorage.removeItem("loginToken");
+      setIsLogin(false);
+      setLoading(false);
+    }
+  };
 
-    return [loading, isLogin]
-}
+  useEffect(() => {
+    const loginToken = JSON.parse(localStorage.getItem("loginToken"));
 
+    if (loginToken) {
+      handleCheckLogin();
+    } else {
+      setIsLogin(false);
+      setLoading(false);
+    }
+  }, []);
+
+  return [loading, isLogin];
+};

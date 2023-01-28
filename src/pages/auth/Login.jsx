@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import AuthFormikControl from "../../components/authForm/AuthFormikControl";
 import { Alert } from "../../utils/alerts";
+import { loginService } from "../../services/auth";
 
 const initialValues = {
   phone: "",
@@ -12,22 +13,22 @@ const initialValues = {
   remember: false,
 };
 
-const onSubmit = (values, submitMethods, navigate) => {
-  axios
-    .post("http://ecomadminapi.azhadev.ir/api/auth/login", {
-      ...values,
-      remember: values.remember ? 1 : 0,
-    })
-    .then((res) => {
-      if (res.status == 200) {
-        localStorage.setItem("loginToken", JSON.stringify(res.data));
-        navigate("/");
-        submitMethods.setSubmitting(false);
-      } else {
-        submitMethods.setSubmitting(false);
-        Alert("متاسفم !", res.data.message, "error");
-      }
-    });
+const onSubmit = async (values, submitMethods, navigate) => {
+  try {
+    const res = await loginService(values);
+
+    if (res.status == 200) {
+      localStorage.setItem("loginToken", JSON.stringify(res.data));
+      navigate("/");
+      submitMethods.setSubmitting(false);
+    } else {
+      submitMethods.setSubmitting(false);
+      Alert("متاسفم !", res.data.message, "error");
+    }
+  } catch (error) {
+    submitMethods.setSubmitting(false);
+    Alert("متاسفم !", "مشکلی از سمت سرور رخداده است", "error");
+  }
 };
 
 const validationSchema = Yup.object({
@@ -50,7 +51,6 @@ const Login = () => {
       validationSchema={validationSchema}
     >
       {(formik) => {
-        console.log(formik);
         return (
           <div className="wrap-login100">
             <Form className="login100-form validate-form pos-relative d-flex flex-column align-items-center justify-content-center">
