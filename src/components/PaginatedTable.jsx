@@ -37,7 +37,7 @@ const PaginatedTable = ({
       data.filter((d) => d[searchParams.searchField].includes(searchChar))
     );
     setCurrentPage(1);
-  }, [searchChar]);
+  }, [searchChar, data]);
 
   return (
     <>
@@ -66,7 +66,12 @@ const PaginatedTable = ({
             {dataInfo.map((d) => (
               <th key={d.field}>{d.title}</th>
             ))}
-            {additionField ? <th>{additionField.title}</th> : null}
+
+            {additionField
+              ? additionField.map((a, index) => (
+                  <th key={a.id + "__" + index}>{a.title}</th>
+                ))
+              : null}
           </tr>
         </thead>
 
@@ -76,7 +81,11 @@ const PaginatedTable = ({
               {dataInfo.map((i) => (
                 <td key={i.field + "_" + d.id}>{d[i.field]}</td>
               ))}
-              {additionField ? <th>{additionField.elemens(d.id)}</th> : null}
+              {additionField
+              ? additionField.map((a, index) => (
+                  <td key={a.id + "___" + index}>{a.elements(d)}</td>
+                ))
+              : null}
             </tr>
           ))}
         </tbody>

@@ -1,88 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import PaginatedTable from "../../components/PaginatedTable";
+import { getCategoriesService } from "../../services/category";
+import { Alert } from "../../utils/alerts";
+import { convertDateToJalali } from "../../utils/convertToJalali";
 import AddCategory from "./AddCategory";
+import Actions from "./tableAdditions/Actions";
+import ShowInMenu from "./tableAdditions/ShowInMenu";
 
 const CategoryTable = () => {
-  const data = [
-    {
-      id: "1",
-      category: "aaa",
-      title: "bbb",
-      stock: "5",
-      price: "1111",
-    },
-    {
-      id: "2",
-      category: "aaa",
-      title: "bbb",
-      stock: "5",
-      price: "1111",
-    },
-    {
-      id: "3",
-      category: "aaa",
-      title: "bbb",
-      stock: "5",
-      price: "1111",
-    },
-    {
-      id: "4",
-      category: "aaa",
-      title: "bbb",
-      stock: "5",
-      price: "1111",
-    },
-    {
-      id: "5",
-      category: "aaa",
-      title: "bbb",
-      stock: "5",
-      price: "1111",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const params = useParams();
+  const location = useLocation();
+
+  const handleGetCategories = async () => {
+    try {
+      const res = await getCategoriesService(params.categoryId);
+
+      if (res.status === 200) {
+        setData(res.data.data);
+      } else {
+        Alert("! 😢 !", res.data.message, "error");
+      }
+    } catch (error) {
+      Alert("متاسفم....!", "مشکلی از سمت سرور رخداده است", "error");
+    }
+  };
+
+  useEffect(() => {
+    handleGetCategories();
+  }, [params]);
 
   const dataInfo = [
     { field: "id", title: "#" },
     { field: "title", title: "عنوان محصول" },
-    { field: "price", title: "قیمت محصول" },
+    { field: "parent_id", title: "والد" },
   ];
 
-  const additionalElements = (itemId) => {
-    return (
-      <>
-        <i
-          className="fas fa-project-diagram text-info mx-1 hoverable_text pointer has_tooltip"
-          title="زیرمجموعه"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-        ></i>
-        <i
-          className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
-          title="ویرایش دسته"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-        ></i>
-        <i
-          className="fas fa-plus text-success mx-1 hoverable_text pointer has_tooltip"
-          title="افزودن ویژگی"
-          data-bs-placement="top"
-          data-bs-toggle="modal"
-          data-bs-target="#add_product_category_attr_modal"
-        ></i>
-        <i
-          className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
-          title="حذف دسته"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-        ></i>
-      </>
-    );
-  };
-
-  const additionField = {
-    title: "عملیات",
-    elemens: (id) => additionalElements(id),
-  };
+  const additionField = [
+    {
+      title: "تاریخ",
+      elements: (rowData) => convertDateToJalali(rowData.created_at),
+    },
+    {
+      title: "قابل نمایش در منو",
+      elements: (rowData) => <ShowInMenu rowData={rowData} />,
+    },
+    {
+      title: "عملیات",
+      elements: (rowData) => <Actions rowData={rowData} />,
+    },
+  ];
 
   const searchParams = {
     title: "جستجو",
@@ -92,7 +60,10 @@ const CategoryTable = () => {
 
   return (
     <>
-      <PaginatedTable
+     <Outlet/>
+
+      {data.length ? (
+        <PaginatedTable
         data={data}
         dataInfo={dataInfo}
         additionField={additionField}
@@ -101,6 +72,9 @@ const CategoryTable = () => {
       >
         <AddCategory />
       </PaginatedTable>
+      ):(
+        <h5 className="text-center my-5 text-danger">چیزی برای نمایش وجود ندارد</h5>
+      )}
     </>
   );
 };
