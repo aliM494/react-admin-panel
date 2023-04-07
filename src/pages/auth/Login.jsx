@@ -1,9 +1,8 @@
 import React from "react";
-import axios from "axios";
 import { Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import AuthFormikControl from "../../components/authForm/AuthFormikControl";
+import AuthFormikControl from "../../components/forms/authForm/FormikControl";
 import { Alert } from "../../utils/alerts";
 import { loginService } from "../../services/auth";
 
