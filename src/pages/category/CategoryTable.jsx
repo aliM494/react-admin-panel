@@ -7,6 +7,7 @@ import { convertDateToJalali } from "../../utils/convertToJalali";
 import AddCategory from "./AddCategory";
 import Actions from "./tableAdditions/Actions";
 import ShowInMenu from "./tableAdditions/ShowInMenu";
+import Parent from "./tableAdditions/Parent";
 
 const CategoryTable = () => {
   const [data, setData] = useState([]);
@@ -34,10 +35,13 @@ const CategoryTable = () => {
   const dataInfo = [
     { field: "id", title: "#" },
     { field: "title", title: "عنوان محصول" },
-    { field: "parent_id", title: "والد" },
   ];
 
   const additionField = [
+    {
+      title: "والد",
+      elements: (rowData) => <Parent id={rowData.parent_id} />,
+    },
     {
       title: "تاریخ",
       elements: (rowData) => convertDateToJalali(rowData.created_at),
@@ -60,20 +64,22 @@ const CategoryTable = () => {
 
   return (
     <>
-     <Outlet/>
+      <Outlet />
 
       {data.length ? (
         <PaginatedTable
-        data={data}
-        dataInfo={dataInfo}
-        additionField={additionField}
-        numOnPage={8}
-        searchParams={searchParams}
-      >
-        <AddCategory />
-      </PaginatedTable>
-      ):(
-        <h5 className="text-center my-5 text-danger">چیزی برای نمایش وجود ندارد</h5>
+          data={data}
+          dataInfo={dataInfo}
+          additionField={additionField}
+          numOnPage={8}
+          searchParams={searchParams}
+        >
+          <AddCategory />
+        </PaginatedTable>
+      ) : (
+        <h5 className="text-center my-5 text-danger">
+          چیزی برای نمایش وجود ندارد
+        </h5>
       )}
     </>
   );
