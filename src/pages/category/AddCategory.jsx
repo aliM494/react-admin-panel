@@ -15,9 +15,7 @@ const initialValues = {
   show_in_menu: true,
 };
 
-const onSubmit = (values, actions) => {
-  console.log(values);
-};
+const onSubmit = (values, actions) => {};
 
 const validationSchema = Yup.object({
   parent_id: Yup.number(),
@@ -55,7 +53,6 @@ const AddCategory = () => {
 
       const allParents = res.data.data;
       if (res.status == 200) {
-        console.log(allParents);
         setParents(
           allParents.map((p) => {
             return { id: p.id, value: p.title };

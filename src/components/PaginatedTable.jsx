@@ -82,10 +82,10 @@ const PaginatedTable = ({
                 <td key={i.field + "_" + d.id}>{d[i.field]}</td>
               ))}
               {additionField
-              ? additionField.map((a, index) => (
-                  <td key={a.id + "___" + index}>{a.elements(d)}</td>
-                ))
-              : null}
+                ? additionField.map((a, index) => (
+                    <td key={a.id + "___" + index}>{a.elements(d)}</td>
+                  ))
+                : null}
             </tr>
           ))}
         </tbody>

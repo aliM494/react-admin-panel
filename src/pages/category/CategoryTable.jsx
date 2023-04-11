@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import PaginatedTable from "../../components/PaginatedTable";
 import { getCategoriesService } from "../../services/category";
-import { Alert } from "../../utils/alerts";
 import { convertDateToJalali } from "../../utils/convertToJalali";
 import AddCategory from "./AddCategory";
 import Actions from "./tableAdditions/Actions";
@@ -12,7 +11,6 @@ import Parent from "./tableAdditions/Parent";
 const CategoryTable = () => {
   const [data, setData] = useState([]);
   const params = useParams();
-  const location = useLocation();
 
   const handleGetCategories = async () => {
     try {
@@ -20,12 +18,8 @@ const CategoryTable = () => {
 
       if (res.status === 200) {
         setData(res.data.data);
-      } else {
-        Alert("! 😢 !", res.data.message, "error");
       }
-    } catch (error) {
-      Alert("متاسفم....!", "مشکلی از سمت سرور رخداده است", "error");
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

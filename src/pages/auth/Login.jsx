@@ -22,11 +22,9 @@ const onSubmit = async (values, submitMethods, navigate) => {
       submitMethods.setSubmitting(false);
     } else {
       submitMethods.setSubmitting(false);
-      Alert("متاسفم !", res.data.message, "error");
     }
   } catch (error) {
     submitMethods.setSubmitting(false);
-    Alert("متاسفم !", "مشکلی از سمت سرور رخداده است", "error");
   }
 };
 

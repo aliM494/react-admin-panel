@@ -13,19 +13,16 @@ const Logout = () => {
       if (res.status == 200) {
         localStorage.removeItem("loginToken");
         setLoading(false);
-      } else {
-        Alert("متاسفم !", res.data.message, "error");
       }
     } catch (error) {
       setLoading(false);
-      Alert("متاسفم !", "مشکلی از سمت سرور رخداده است", "error");
     }
   };
 
   useEffect(() => {
     handleLogout();
   }, []);
-  
+
   return (
     <>
       {loading ? (
