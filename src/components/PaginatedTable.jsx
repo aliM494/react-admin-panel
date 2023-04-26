@@ -16,6 +16,7 @@ const PaginatedTable = ({
   const [pages, setPages] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const [searchChar, setSearchChar] = useState("");
+  const [forceReset, setForceReset] = useState(0);
 
   useEffect(() => {
     let pCount = Math.ceil(initData.length / numOnPage);
@@ -23,7 +24,7 @@ const PaginatedTable = ({
     let pArr = [];
     for (let i = 1; i <= pCount; i++) pArr = [...pArr, i];
     setPages(pArr);
-  }, [initData]);
+  }, [initData, forceReset]);
 
   useEffect(() => {
     let start = currentPage * numOnPage - numOnPage;

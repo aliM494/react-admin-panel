@@ -3,7 +3,10 @@ import ModalsContainer from "../../components/ModalsContainer";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import FormikControl from "../../components/forms/normalForm/FormikControl";
-import { getCategoriesService } from "../../services/category";
+import {
+  createNewCategoryService,
+  getCategoriesService,
+} from "../../services/category";
 import { Alert } from "../../utils/alerts";
 
 const initialValues = {
@@ -15,7 +18,22 @@ const initialValues = {
   show_in_menu: true,
 };
 
-const onSubmit = (values, actions) => {};
+const onSubmit = async (values, actions) => {
+  try {
+    values = {
+      ...values,
+      is_active: values.is_active ? 1 : 0,
+      show_in_menu: values.show_in_menu ? 1 : 0,
+    };
+    const res = await createNewCategoryService(values);
+
+    console.log(res);
+    if (res.status == 201) {
+      Alert("رکورد ثبت شد", res.data.message, "success");
+      actions.resetForm();
+    }
+  } catch (error) {}
+};
 
 const validationSchema = Yup.object({
   parent_id: Yup.number(),
@@ -85,8 +103,8 @@ const AddCategory = () => {
       >
         <Formik
           initialValues={initialValues}
-          onSubmit={onSubmit}
           validationSchema={validationSchema}
+          onSubmit={(values, actions) => onSubmit(values, actions)}
         >
           <Form>
             <div className="container">
