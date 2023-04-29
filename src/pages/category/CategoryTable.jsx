@@ -11,20 +11,25 @@ import Parent from "./tableAdditions/Parent";
 const CategoryTable = () => {
   const [data, setData] = useState([]);
   const params = useParams();
+  const [forceReset, setForceReset] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const handleGetCategories = async () => {
+    setLoading(true);
     try {
       const res = await getCategoriesService(params.categoryId);
-
       if (res.status === 200) {
         setData(res.data.data);
       }
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     handleGetCategories();
-  }, [params]);
+  }, [params, forceReset]);
 
   const dataInfo = [
     { field: "id", title: "#" },
@@ -59,22 +64,16 @@ const CategoryTable = () => {
   return (
     <>
       <Outlet />
-
-      {data.length ? (
-        <PaginatedTable
-          data={data}
-          dataInfo={dataInfo}
-          additionField={additionField}
-          numOnPage={8}
-          searchParams={searchParams}
-        >
-          <AddCategory />
-        </PaginatedTable>
-      ) : (
-        <h5 className="text-center my-5 text-danger">
-          چیزی برای نمایش وجود ندارد
-        </h5>
-      )}
+      <PaginatedTable
+        data={data}
+        dataInfo={dataInfo}
+        additionField={additionField}
+        numOnPage={8}
+        searchParams={searchParams}
+        loading={loading}
+      >
+        <AddCategory setForceReset={setForceReset} />
+      </PaginatedTable>
     </>
   );
 };
