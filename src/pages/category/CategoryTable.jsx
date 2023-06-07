@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import PaginatedTable from "../../components/PaginatedTable";
-import { getCategoriesService } from "../../services/category";
+import {
+  deleteCategoryService,
+  getCategoriesService,
+} from "../../services/category";
 import { convertDateToJalali } from "../../utils/convertToJalali";
 import AddCategory from "./AddCategory";
 import Actions from "./tableAdditions/Actions";
 import ShowInMenu from "./tableAdditions/ShowInMenu";
 import Parent from "./tableAdditions/Parent";
+import { Alert, Confirm } from "../../utils/alerts";
 
 const CategoryTable = () => {
   const [data, setData] = useState([]);
@@ -27,6 +31,23 @@ const CategoryTable = () => {
     }
   };
 
+  const handleDeleteCategories = async (category) => {
+    if (
+      await Confirm(
+        "حذف دسته بندی",
+        `آیا از حذف دسته بندی ${category.title} اطمینان دارید ؟`
+      )
+    ) {
+      try {
+        const res = await deleteCategoryService(category.id);
+        if (res.status === 200) {
+          setData(data.filter((d) => d.id != category.id));
+          Alert("انجام شد", res.data.message, "success");
+        }
+      } catch (error) {}
+    }
+  };
+
   useEffect(() => {
     handleGetCategories();
   }, [params, forceReset]);
@@ -39,7 +60,7 @@ const CategoryTable = () => {
   const additionField = [
     {
       title: "والد",
-      elements: (rowData) => <Parent id={rowData.parent_id} />,
+      elements: (rowData) => <Parent rowData={rowData} />,
     },
     {
       title: "تاریخ",
@@ -51,7 +72,12 @@ const CategoryTable = () => {
     },
     {
       title: "عملیات",
-      elements: (rowData) => <Actions rowData={rowData} />,
+      elements: (rowData) => (
+        <Actions
+          rowData={rowData}
+          handleDeleteCategories={handleDeleteCategories}
+        />
+      ),
     },
   ];
 

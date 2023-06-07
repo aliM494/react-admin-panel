@@ -8,10 +8,6 @@ export const getSingleCategoryService = (id) => {
   return httpService(`/admin/categories/${id}`, "get");
 };
 
-export const editCategoryService = (id, data) => {
-  return httpService(`/admin/categories/${id}`, "put", data);
-};
-
 export const createNewCategoryService = (data) => {
   if (data.image) {
     let formData = new FormData();
@@ -27,4 +23,12 @@ export const createNewCategoryService = (data) => {
   }
 
   return httpService(`/admin/categories`, "post", data);
+};
+
+export const editCategoryService = (id, data) => {
+  return httpService(`/admin/categories/${id}`, "put", data);
+};
+
+export const deleteCategoryService = (id) => {
+  return httpService(`/admin/categories/${id}`, "delete");
 };
